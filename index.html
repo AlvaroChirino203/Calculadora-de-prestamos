@@ -107,12 +107,17 @@
       return currencySymbol + ' ' + (Number(n).toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     }
     function calcularInteres(amount, rate, years) {
-      
+      const NumeroCuotas = years * 12
+      const TasaMensual = (rate / 100) / 12
+      const cuotamensual = amount * (TasaMensual * Math.pow(1 + TasaMensual, NumeroCuotas)) / (Math.pow(1 + TasaMensual, NumeroCuotas) - 1)
+      const totalPagado = cuotamensual * NumeroCuotas
+      const interestotal = totalPagado - amount
       return {
-        monthly: cuotaMensual.toFixed(2),
-        totalInterest: interesTotal.toFixed(2),
+        monthly: cuotamensual.toFixed(2),
+        totalInterest: interestotal.toFixed(2),
         totalPaid: totalPagado.toFixed(2)
       };
+      
     }
     function renderResults(res) {
       resultsEl.innerHTML = `
